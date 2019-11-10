@@ -1,5 +1,5 @@
-#ifndef SEATCHANGE_HPP
-#define SEATCHANGE_HPP
+#ifndef SEATCHANGE_H
+#define SEATCHANGE_H
 
 #include <vector>
 #include <iostream>
@@ -22,4 +22,4 @@ private :
 };
 
 
-#endif SEATCHANGE_HPP
+#endif SEATCHANGE_H
