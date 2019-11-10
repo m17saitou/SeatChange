@@ -33,11 +33,18 @@ void SeatChange::newSeat(std::vector<int[3]> defSeat){
         }
     }
     else{
-        //座席指定があった場合
+        for(int i=0;i<defSeat.size();i++){
+            seatArray[defSeat[i][1]*SeatChange::width + defSeat[i][0]] = defSeat[i][2];
+        }
+        for(int y=0;y<=SeatChange::height;y++){
+            for(int x=0;x<=SeatChange::width;x++){
+                if(seatArray[y*SeatChange::width + x] != 0)seatArray[y*SeatChange::width + x] = createSeat(seatArray);
+            }
+        }
     }
 }
 void SeatChange::fromCsvSeat(std::string filename){
-    std::ifstream inputcsv(filename);
+    std::ifstream inputcsv(filename, std::ios::in);
 }
 void SeatChange::noDuplicateSeat(std::vector<std::vector<int>> bofores, int howAgo){
     // 特にnewSeatとやることに変化はない．
