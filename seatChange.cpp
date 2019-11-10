@@ -1,5 +1,7 @@
 #include "seatChange.h"
-
+int SeatChange::height=-1;
+int SeatChange::width=-1;
+int SeatChange::clsNum=0;
 SeatChange::SeatChange(int w , int h){
     SeatChange::width = w;
     SeatChange::height = h;
@@ -24,31 +26,52 @@ int SeatChange::getSeatID(int x,int y){
     int id = seatArray[y*SeatChange::width + x];
     return id;
 }
-void SeatChange::newSeat(std::vector<int[3]> defSeat){
-    if(defSeat.empty()){
-        for(int y=0;y<=SeatChange::height;y++){
-            for(int x=0;x<=SeatChange::width;x++){
-                seatArray[y*SeatChange::width + x] = createSeat(seatArray);
-            }
+void SeatChange::newSeat(){
+    for(int y=0;y<=SeatChange::height;y++){
+        for(int x=0;x<=SeatChange::width;x++){
+            if(seatArray[y*SeatChange::width + x] != 0)seatArray[y*SeatChange::width + x] = createSeat(seatArray);
         }
     }
-    else{
-        for(int i=0;i<defSeat.size();i++){
-            seatArray[defSeat[i][1]*SeatChange::width + defSeat[i][0]] = defSeat[i][2];
-        }
-        for(int y=0;y<=SeatChange::height;y++){
-            for(int x=0;x<=SeatChange::width;x++){
-                if(seatArray[y*SeatChange::width + x] != 0)seatArray[y*SeatChange::width + x] = createSeat(seatArray);
-            }
+}
+void SeatChange::newSeatDefined(std::vector<int [3]> defSeat){
+    for(int i=0;i<defSeat.size();i++){
+        seatArray[defSeat[i][1]*SeatChange::width + defSeat[i][0]] = defSeat[i][2];
+    }
+    for(int y=0;y<=SeatChange::height;y++){
+        for(int x=0;x<=SeatChange::width;x++){
+            if(seatArray[y*SeatChange::width + x] != 0)seatArray[y*SeatChange::width + x] = createSeat(seatArray);
         }
     }
+
 }
 void SeatChange::fromCsvSeat(std::string filename){
-    std::ifstream inputcsv(filename, std::ios::in);
+    std::ifstream inputCsv(filename);
+    std::string linebuf;
+    std::vector<std::string> valueArr;
+    while(getline(inputCsv, linebuf)){
+        std::istringstream stream(linebuf);
+        std::string str;
+        while(getline(stream,str,','))valueArr.push_back(str);
+    }
+    for(int i=0;i<valueArr.size();i++){
+        seatArray[i] = std::stoi(valueArr[i]);
+    }
 }
 void SeatChange::noDuplicateSeat(std::vector<std::vector<int>> bofores, int howAgo){
-    // 特にnewSeatとやることに変化はない．
+    // 特にnewSeatとやることに変化はない．以前との重複チェック追加だけ
 }
 int SeatChange::createSeat(std::vector<int> already){
-    //乱数を発生させて重複を確認して返すだけ．
+    std::random_device randSeed;
+    std::mt19937_64 mt(randSeed());
+    std::uniform_int_distribution<int> intRand(1,SeatChange::clsNum);
+    int ID;
+    while(1){
+        int tmpRand = intRand(mt);
+        auto tmpRslt = std::find(already.begin(),already.end(),tmpRand);
+        if(tmpRslt == already.end()){
+            ID = tmpRand;
+            break;
+        }
+    }
+    return ID;
 }
