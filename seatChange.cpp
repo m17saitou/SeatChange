@@ -24,3 +24,11 @@ int SeatChange::getSeatID(int x,int y){
     int id = seatArray[y*SeatChange::width + x];
     return id;
 }
+void SeatChange::newSeat(std::vector<int[3]> defSeat){
+    if(defSeat.empty()){
+        //座席指定が無く，全て乱数で決めて良い場合
+    }
+    else{
+        //座席指定があった場合
+    }
+}

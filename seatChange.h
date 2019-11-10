@@ -15,7 +15,9 @@ public :
     std::vector<int> getSeatData();//席順配列を返す
     int getSeatID(int x, int y);//座標からその席の出席番号を返す
     void newSeat(std::vector <int[3]> defSeat);//新しい席順を生成する vectorで絶対的に固定できる．フォーマットは{x,y,出席番号}
-    void fromCsvSeat(std::string filename);
+    void fromCsvSeat(std::string filename);//CSVから席順配列を生成する
+    void noDuplicateSeat(std::vector<std::vector<int>> bofores,int howAgo);// 複数(howAgo)回前からのデータと重複しないように席順生成
+    int createSeat(std::vector<int> already);//まだ席が決まってない出席番号を返す 引数は既に決まった出席番号を入れたvector
     ~SeatChange();//デストラクタ (一応)
 private :
     std::vector <int> seatArray;
