@@ -1,4 +1,4 @@
-#include "seatChange.hpp"
+#include "seatChange.h"
 
 SeatChange::SeatChange(int w , int h){
     SeatChange::width = w;
