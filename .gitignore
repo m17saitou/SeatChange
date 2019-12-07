@@ -1,3 +1,6 @@
 #ignore file or directory
+
 .vscode/
+
 *.o
+*.out
