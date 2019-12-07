@@ -1,6 +1,6 @@
 #ignore file or directory
 
-.vscode/*
+.vscode/settings.json
 
 *.o
 *.out
