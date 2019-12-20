@@ -23,6 +23,7 @@ public :
     void fromCsvSeat(std::string filename);//CSVから席順配列を生成する
     void noDuplicateSeat(std::vector<std::vector<int>> bofores,int howAgo);// 複数(howAgo)回前からのデータと重複しないように席順生成
     int createSeat(std::vector<int> already);//まだ席が決まってない出席番号を返す 引数は既に決まった出席番号を入れたvector
+    void showSeat();
     //~SeatChange();//デストラクタ (一応)
 private :
     std::vector <int> seatArray;

@@ -26,9 +26,14 @@ int SeatChange::getSeatID(int x,int y){
     return id;
 }
 void SeatChange::newSeat(){
-    for(int y=0;y<=SeatChange::height;y++){
-        for(int x=0;x<=SeatChange::width;x++){
-            seatArray[y*SeatChange::width + x] = createSeat(seatArray);
+    std::vector<int> alreadyArr;
+    alreadyArr.push_back(0);
+    for(int y=0;y<SeatChange::height;y++){
+        for(int x=0;x<SeatChange::width;x++){
+            int tmpNum = createSeat(alreadyArr);
+            alreadyArr.push_back(tmpNum);
+            if(tmpNum > SeatChange::clsNum)seatArray[y*SeatChange::width + x] = 0;
+            else seatArray[y*SeatChange::width + x] = tmpNum;
         }
     }
 }
@@ -62,7 +67,7 @@ void SeatChange::noDuplicateSeat(std::vector<std::vector<int>> bofores, int howA
 int SeatChange::createSeat(std::vector<int> already){
     std::random_device randSeed;
     std::mt19937_64 mt(randSeed());
-    std::uniform_int_distribution<int> intRand(1,SeatChange::clsNum);
+    std::uniform_int_distribution<int> intRand(1,SeatChange::width*SeatChange::height);
     int ID;
     while(1){
         int tmpRand = intRand(mt);
@@ -73,4 +78,13 @@ int SeatChange::createSeat(std::vector<int> already){
         }
     }
     return ID;
+}
+
+void SeatChange::showSeat(){
+    for(int i=0;i<SeatChange::height;i++){
+        for(int j=0;j<SeatChange::width;j++){
+            std::cout << " " << seatArray.at(i*SeatChange::width + j);
+        }
+        std::cout << std::endl;
+    }
 }
