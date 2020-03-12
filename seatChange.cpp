@@ -1,6 +1,6 @@
 #include "seatChange.h"
-int SeatChange::height=-1;
-int SeatChange::width=-1;
+int SeatChange::height=1;
+int SeatChange::width=1;
 int SeatChange::clsNum=0;
 SeatChange::SeatChange(int w , int h){
     SeatChange::width = w;
