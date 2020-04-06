@@ -5,7 +5,6 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <QCoreApplication>
-#include <bits/stdc++.h>
 
 class SeatChange;
 
