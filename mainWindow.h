@@ -6,7 +6,6 @@
 #include <QtWidgets>
 #include <QRadioButton>
 #include <QCoreApplication>
-#include <bits/stdc++.h>
 
 class SeatChange;
 class QLineEdit;
