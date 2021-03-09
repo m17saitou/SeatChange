@@ -6,6 +6,7 @@
 #include <QtWidgets>
 #include <QRadioButton>
 #include <QCoreApplication>
+#include <QFont>
 
 class SeatChange;
 class QLineEdit;
@@ -30,6 +31,7 @@ public:
     QPushButton *exportCSV;
     QPushButton *importCSV;
     QRadioButton *setSeatOption;
+    std::vector<int> currentSeat;
 public slots:
     void createNew();
     void importCSVFile();

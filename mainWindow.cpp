@@ -38,7 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
         QWidget *windowWidget = new QWidget();
         windowWidget ->setLayout(mainLayout);
         setCentralWidget(windowWidget);
-
         connect(createNewSeat,SIGNAL(clicked()),this,SLOT(createNew()));
         connect(importCSV,SIGNAL(clicked()),this,SLOT(importCSVFile()));
         connect(exportCSV,SIGNAL(clicked()),this,SLOT(exportCSVFile()));
@@ -50,19 +49,19 @@ void MainWindow::createNew(){
     seatView->setColumnCount(columnSeat->text().toInt());
     SeatChange::clsNum = studentNum->text().toInt();
     originSeat.newSeat();
-    std::vector<int> seatVec;
-    seatVec = originSeat.getSeatData();
+    currentSeat = originSeat.getSeatData();
     for(int y=0;y<=SeatChange::height;y++){
+        seatView->setColumnWidth(y,int((seatView->width()/SeatChange::width)*0.9));
         for(int x=0;x<=SeatChange::width;x++){
-            seatView->setCellWidget(y, x, new QLabel(QString::number(originSeat.getSeatID(x,y),10)));
-            //((QLabel*)(seatView->cellWidget(y,x)))->setAlignment(Qt::AlignCenter);
+            seatView->setRowHeight(y,int((seatView->height()/SeatChange::height)*0.9));
+            QLabel *item = new QLabel(QString::number(originSeat.getSeatID(x,y),10));
+            item->setAlignment(Qt::AlignCenter);
+            QFont fn;
+            fn.setPixelSize(int((seatView->height()/SeatChange::height)*0.7));
+            item->setFont(fn);
+            seatView->setCellWidget(y, x,item);
         }
     }
-    // for(int y=0;y<=SeatChange::height;y++){
-    //     for(int x=0;x<=SeatChange::width;x++){
-    //         ((QLabel*)(seatView->cellWidget(y,x)))-> setText();
-    //     }
-    // }
 }
 
 void MainWindow::importCSVFile(){
@@ -73,7 +72,16 @@ void MainWindow::importCSVFile(){
 }
 
 void MainWindow::exportCSVFile(){
-    std::ofstream exportingCSV();
+    QString output = QFileDialog::getSaveFileName(this,tr("Save CSV File"),"~/Desktop/Seat.csv","CSV File (*.csv)");
+    std::string outcsv = output.toStdString();
+    std::ofstream exportingCSV(outcsv);
+    for(int y=0;y<SeatChange::height;y++){
+        y ? exportingCSV << "\n " : exportingCSV << " "; 
+        for(int x=0;x<SeatChange::width;x++){
+            int cellNum = currentSeat.at(y*SeatChange::width + x);
+            exportingCSV << cellNum << ", ";
+        }
+    }
 }
 MainWindow::~MainWindow(){
 }
