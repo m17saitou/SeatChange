@@ -73,7 +73,7 @@ void MainWindow::importCSVFile(){
 }
 
 void MainWindow::exportCSVFile(){
-
+    std::ofstream exportingCSV();
 }
 MainWindow::~MainWindow(){
 }
