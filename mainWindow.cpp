@@ -66,7 +66,10 @@ void MainWindow::createNew(){
 }
 
 void MainWindow::importCSVFile(){
-    QString jsonDialogName = QFileDialog::getOpenFileName(this,tr("CSV Import"),".","CSV File (*.csv)");
+    QString csvDialogName = QFileDialog::getOpenFileName(this,tr("CSV Import"),".","CSV File (*.csv)");
+    std::string file = csvDialogName.toStdString();
+    SeatChange oldSeatFromFile(seatView->columnCount(),seatView->rowCount());
+    oldSeatFromFile.fromCsvSeat(file);
 }
 
 void MainWindow::exportCSVFile(){
