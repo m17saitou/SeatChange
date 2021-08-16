@@ -71,7 +71,7 @@ int SeatChange::createSeat(std::vector<int> already){
     int ID;
     while(1){
         int tmpRand = intRand(mt);
-        auto tmpRslt = std::find(already.begin(),already.end(),tmpRand);
+        auto tmpRslt = std::find(already.begin(),already.end(),tmpRand);// shuffleを使用したほうが良さそう
         if(tmpRslt == already.end()){
             ID = tmpRand;
             break;
